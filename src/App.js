@@ -3,10 +3,16 @@ import './App.css';
 
 const ACTIONS={
   ADD_DIGIT:'add-digit',
+  CHOOSE_OPERATION:'choose-operation',
   CLEAR:'clear',
-  DELETE_DIGIT:'delete-digit'
+  DELETE_DIGIT:'delete-digit',
+  EVALUATE:'evaluate'
 }
-function reducer(state,){}
+function reducer(state,{type,payload}){
+  switch(type){
+    
+  }
+}
 function App() {
 
   const [{currentOperand,previousOperand,operation},dispatch]=useReducer(reducer,{})
