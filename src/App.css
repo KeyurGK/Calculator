@@ -63,8 +63,8 @@ word-break:break-all;
 }
 @media(min-width:900px){
   .calculator-grid{
-    grid-template-columns:repeat(4,8rem);
-    grid-template-rows:minmax(7rem,auto) repeat(5,5.5rem);
+    grid-template-columns:repeat(4,7.5rem);
+    grid-template-rows:minmax(7rem,auto) repeat(5,5rem);
   }
 }
 
