@@ -12,6 +12,7 @@ export const ACTIONS={
   DELETE_DIGIT:'delete-digit',
   EVALUATE:'evaluate'
 }
+
 function reducer(state,{type,payload}){
   switch(type){
     case ACTIONS.ADD_DIGIT:
@@ -23,17 +24,61 @@ function reducer(state,{type,payload}){
         currentOperand:`${state.currentOperand  || ""}${payload.digit}`
       } 
       case ACTIONS.CHOOSE_OPERATION:
-        return{
-          ...state,
-          currentOperand:`${state.currentOperand  || ""}${payload.operation}`
-        } 
-        case ACTIONS.CLEAR:
+        
+        if(state.currentOperand==null){
           return{
-            
-            currentOperand:``
-          } 
+            ...state,
+            operation:payload.operation
+          }
+        }
+        if(state.currentOperand == null && state.previousOperand == null){
+          return state
+        }
+        if(state.previousOperand == null){
+          return{
+          ...state,
+          operation:payload.operation,
+          previousOperand:state.currentOperand,
+          currentOperand:null
+        }
+      }
+      return{
+        ...state,
+        operation:payload.operation,
+        previousOperand:evaluate(state),
+        currentOperand:null
+      }
+        
+        case ACTIONS.CLEAR:
+          return{} 
   }
 }
+
+function evaluate({currentOperand,previousOperand,operation}){
+const previous = parseFloat(previousOperand)
+const current = parseFloat(currentOperand)
+if(isNaN(previous) || isNaN(current)) return ''
+let computation=''
+switch(operation){
+  case '+':
+    computation = previous + current
+    break
+  case '-':
+    computation = previous - current
+    break
+  case '*':
+    computation = previous * current
+    break
+  case '÷':
+    computation = previous / current
+    break
+}
+return computation.toString()
+}
+
+
+
+
 function App() {
 
   const [{currentOperand,previousOperand,operation},dispatch]=useReducer(
